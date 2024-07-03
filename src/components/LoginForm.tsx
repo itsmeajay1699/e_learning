@@ -6,7 +6,7 @@ const LoginForm = () => {
           <div className="flex flex-col space-y-5">
             <div className="flex flex-col gap-3">
               <label htmlFor="email">Email</label>
-              <input type="text" placeholder="john@gmail.com" />
+              <input type="text" placeholder="steve@gmail.com" />
 
               <label htmlFor="password">Password</label>
               <input placeholder="********" type="password" />
