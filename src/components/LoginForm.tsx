@@ -1,4 +1,8 @@
-const LoginForm = () => {
+const LoginForm = ({
+  setShowLogin,
+}: {
+  setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <div>
       <div className="pb-8">
@@ -33,9 +37,12 @@ const LoginForm = () => {
             </div>
             <p className="text-center mt-5">
               Don't have an account?{" "}
-              <a href="#" className="text-blue-500">
+              <span
+                onClick={() => setShowLogin(false)}
+                className="text-blue-500 cursor-pointer"
+              >
                 Register
-              </a>
+              </span>
             </p>
           </div>
         </form>
