@@ -1,0 +1,19 @@
+
+localhost:5000/api/course/my-courses/61035436-4e1d-4e7b-b102-31e0304d13ea?limit=2&page=1
+
+add the cloud name and unsigned url to the env file later
+
+1. student sign up and login
+2. educator sign up and login
+3. student can see all the courses
+4. student can filter the course on the bases of the category
+5. student can enroll in the course
+6. student can see the enrolled courses
+7. student can see the course details
+8. student can see the course content
+9.educator can create the course
+10. educator can add the course content
+11. educator can see the course content
+12. educator can see the enrolled students
+13. educator can see the course details
+

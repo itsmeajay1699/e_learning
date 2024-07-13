@@ -4,25 +4,13 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const sidebarItems = [
-  {
-    name: "Dashboard",
-    src: "../../../../public/icons/home.svg",
-    link: "/student/dashboard",
-  },
-  {
-    name: "Courses",
-    src: "../../../../public/icons/courses.png",
-    link: "/student/courses",
-  },
-  {
-    name: "Profile",
-    src: "../../../../public/icons/enrolled-courses.png",
-    link: "/student/enrolled-courses",
-  },
-];
+type SidebarItem = {
+  name: string;
+  src: string;
+  link: string;
+};
 
-const StudentSideBar = () => {
+const StudentSideBar = ({ item }: { item: SidebarItem[] }) => {
   const location = useLocation();
 
   return (
@@ -34,7 +22,7 @@ const StudentSideBar = () => {
         </div>
 
         <ul className="sidebar__nav">
-          {sidebarItems.map((item, index) => (
+          {item.map((item, index) => (
             <li
               key={index}
               className={`sidebar__nav-item ${

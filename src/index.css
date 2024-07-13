@@ -134,6 +134,10 @@ input::placeholder {
   font-family: "Poppins", sans-serif;
 }
 
+/* section {
+  max-width: calc(100% - 145px);
+} */
+
 @media (max-width: 768px) {
   .sidebar {
     width: max-content;
@@ -144,7 +148,16 @@ input::placeholder {
   .active {
     margin-inline: 0;
   }
+
+  /* section {
+    max-width: calc(100% - 60px);
+  } */
 }
+/* @media (min-width: 1024px) {
+  section {
+    max-width: 100%;
+  }
+} */
 
 .sidebar__logo {
   padding-inline: 0.5rem;
@@ -183,10 +196,6 @@ input::placeholder {
   margin-inline: 0.5rem;
 }
 
-section {
-  max-width: 1600px;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -206,3 +215,9 @@ h6::after {
   margin-top: 0.2rem;
 }
 
+.scroll-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 1rem;
+  overflow-x: auto;
+}

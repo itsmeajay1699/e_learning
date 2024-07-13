@@ -9,6 +9,7 @@ const CourseCard = ({
   rating,
   duration,
   course,
+  toGO = "/student/courses",
 }: {
   thumbnail: string;
   title: string;
@@ -19,13 +20,10 @@ const CourseCard = ({
   duration: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   course: any;
+  toGO?: string;
 }) => {
   return (
-    <Link
-      key={course._id}
-      state={{ course }}
-      to={`/student/courses/${course._id}`}
-    >
+    <Link key={course._id} state={{ course }} to={`${toGO}/${course._id}`}>
       <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}

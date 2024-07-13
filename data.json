@@ -1,3 +1,77 @@
+
+// {
+//   "studentId": "123e4567-e89b-12d3-a456-426614174000",
+//   "courseId": "668d79ba3bfd352ff3e3899d",
+//   "status": "enrolled",
+//   "studentDetails": {
+//     "_id": "123e4567-e89b-12d3-a456-426614174000",
+//     "name": "Jane Smith",
+//     "email": "jane.smith@example.com",
+//     "profilePic": "https://example.com/images/jane-smith.jpg",
+//     "createdAt": "2024-07-01T12:00:00.000Z",
+//     "updatedAt": "2024-07-01T12:00:00.000Z"
+//   },
+//   "educatorId": "61035436-4e1d-4e7b-b102-31e0304d13ea",
+//   "educatorDetails": {
+//     "_id": "61035436-4e1d-4e7b-b102-31e0304d13ea",
+//     "name": "Dr. John Doe",
+//     "email": "educator@gmail.com",
+//     "profilePic": "https://example.com/images/dr-john-doe.jpg",
+//     "createdAt": "2024-06-15T09:30:00.000Z",
+//     "updatedAt": "2024-06-15T09:30:00.000Z"
+//   },
+//   "courseDetails": {
+//     "educatorId": "61035436-4e1d-4e7b-b102-31e0304d13ea",
+//     "educatorDetails": {
+//       "_id": "61035436-4e1d-4e7b-b102-31e0304d13ea",
+//       "name": "Dr. John Doe",
+//       "email": "educator@gmail.com",
+//       "profilePic": "https://example.com/images/dr-john-doe.jpg",
+//       "createdAt": "2024-06-15T09:30:00.000Z",
+//       "updatedAt": "2024-06-15T09:30:00.000Z"
+//     },
+//     "title": "Introduction to Artificial Intelligence",
+//     "description": "This course provides a comprehensive introduction to the field of Artificial Intelligence, including topics such as machine learning, neural networks, and natural language processing.",
+//     "thumbnail": "https://nearlearn.com/public/images/ai-training-in-bangalore.jpeg",
+//     "price": 1999.99,
+//     "duration": 20,
+//     "totalEnrollment": 0,
+//     "totalSession": 5,
+//     "sessionDetails": [
+//       {
+//         "sessionNumber": 1,
+//         "title": "Introduction to AI",
+//         "description": "Overview of AI, its history, and its applications."
+//       },
+//       {
+//         "sessionNumber": 2,
+//         "title": "Machine Learning Basics",
+//         "description": "Introduction to machine learning concepts and techniques."
+//       },
+//       {
+//         "sessionNumber": 3,
+//         "title": "Deep Learning",
+//         "description": "Fundamentals of neural networks and deep learning."
+//       },
+//       {
+//         "sessionNumber": 4,
+//         "title": "Natural Language Processing",
+//         "description": "Techniques for processing and understanding human language."
+//       },
+//       {
+//         "sessionNumber": 5,
+//         "title": "AI Ethics and Future",
+//         "description": "Discussion on ethical considerations and the future of AI."
+//       }
+//     ],
+//     "status": "1",
+//     "rating": 4.5,
+//     "createdAt": "2024-07-09T17:56:10.520Z",
+//     "updatedAt": "2024-07-09T17:56:10.520Z"
+//   }
+// }
+
+
 {
   "data": [
     {

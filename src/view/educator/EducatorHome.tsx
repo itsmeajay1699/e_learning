@@ -1,29 +1,29 @@
+import StudentSideBar from "../students/components/StudentSideBar";
 import { Outlet } from "react-router-dom";
-import StudentSideBar from "./components/StudentSideBar";
 
-const sidebarItems = [
+const item = [
   {
     name: "Dashboard",
     src: "../../../../public/icons/home.svg",
-    link: "/student/dashboard",
+    link: "/educator/dashboard",
   },
   {
-    name: "Courses",
+    name: "My Courses",
     src: "../../../../public/icons/courses.png",
-    link: "/student/courses",
+    link: "/educator/my-courses",
   },
   {
-    name: "Profile",
+    name: "Upload Course",
     src: "../../../../public/icons/enrolled-courses.png",
-    link: "/student/profile",
+    link: "/educator/upload-course",
   },
 ];
 
-const StudentHome = () => {
+const EducatorHome = () => {
   return (
     <main className="flex gap-4 p-[1rem]">
       <div className="">
-        <StudentSideBar item={sidebarItems} />
+        <StudentSideBar item={item} />
       </div>
       <section className="md:ml-[280px] ml-[120px] flex-1">
         <Outlet />
@@ -32,4 +32,4 @@ const StudentHome = () => {
   );
 };
 
-export default StudentHome;
+export default EducatorHome;

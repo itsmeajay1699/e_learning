@@ -6,7 +6,7 @@ const ProtectedRoute = ({ userRole }: { userRole: number }) => {
   if (userRole === 1) {
     return <Outlet />;
   } else if (userRole === 2) {
-    return <h1>Educator Dashboard</h1>;
+    return <Outlet />;
   } else {
     return <h1>Not Authorized</h1>;
   }
