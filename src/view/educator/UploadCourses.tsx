@@ -5,6 +5,7 @@ import UploadCourseForm from "./components/UploadCourseForm";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import Axios from "@/utils";
 
 const schema = z.object({
   title: z.string().min(5),
@@ -23,6 +24,10 @@ const schema = z.object({
   totalSession: z.number().positive().optional(),
   rating: z.string().optional(),
   thumbnail: z.string().optional(),
+  categoryId: z.string().min(1, {
+    message: "Please select a category",
+  }),
+  thumbnailLink: z.string().optional(),
 });
 
 const UploadCourses = () => {
@@ -50,14 +55,19 @@ const UploadCourses = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append(
-        "upload_preset",
-        import.meta.env.VITE_CLOUDINARY_PRESET as string
-      );
+      formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_PRESET);
 
+      console.log(import.meta.env.VITE_CLOUDINARY_URL);
+      console.log(import.meta.env.VITE_CLOUDINARY_PRESET);
       const response = await axios.post(
-        import.meta.env.VITE_CLOUDINARY_URL as string,
-        formData
+        import.meta.env.VITE_CLOUDINARY_URL,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: false,
+        }
       );
 
       return response.data.secure_url;
@@ -90,6 +100,7 @@ const UploadCourses = () => {
       totalEnrollment: 0,
       totalSession: 1,
       thumbnail: "",
+      categoryId: "",
       sessionDetails: [
         {
           sessionNumber: 1,
@@ -97,8 +108,9 @@ const UploadCourses = () => {
           description: "",
         },
       ],
-      status: "active",
+      status: "1",
       rating: 0,
+      thumbnailLink: "",
     },
   });
 
@@ -117,24 +129,35 @@ const UploadCourses = () => {
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
       setLoading(true);
-      const url = await uploadImage();
 
-      if (!url) {
-        return toast.error("Image upload failed", {
-          position: "top-right",
-          className: "bg-red-500 text-white p-4 rounded-lg",
-          duration: 1000,
+      let url = "";
+      if (data.thumbnailLink && !file) {
+        url = data.thumbnailLink;
+      } else if (!data.thumbnailLink && file) {
+        url = await uploadImage();
+      } else {
+        form.setError("thumbnailLink", {
+          message: "Thumbnail link is required",
         });
+        return;
       }
 
       data.thumbnail = url;
+
       data.totalSession = data.sessionDetails.length;
-      console.log(data);
+
+      const res = await Axios.post("/course/create", data);
+
+      console.log(res.data);
+
       toast.success("Course uploaded successfully", {
         position: "top-right",
         className: "bg-green-500 text-white p-4 rounded-lg",
         duration: 1000,
       });
+
+      form.reset();
+
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -142,6 +165,8 @@ const UploadCourses = () => {
       setLoading(false);
     }
   };
+
+  console.log(errors);
 
   return (
     <section className="bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">

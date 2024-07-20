@@ -13,8 +13,19 @@ const sidebarItems = [
     link: "/student/courses",
   },
   {
+    name: "Enrolled Courses",
+    src: "../../../../public/icons/enrolled-course.png",
+    link: "/student/enrolled-courses",
+  },
+  {
+    name: "Chat",
+    src: "../../../../public/icons/chat.png",
+    link: "/student/chat",
+  },
+
+  {
     name: "Profile",
-    src: "../../../../public/icons/enrolled-courses.png",
+    src: "../../../../public/icons/people.png",
     link: "/student/profile",
   },
 ];
@@ -25,7 +36,7 @@ const StudentHome = () => {
       <div className="">
         <StudentSideBar item={sidebarItems} />
       </div>
-      <section className="md:ml-[280px] ml-[120px] flex-1">
+      <section className="md:pl-[280px] pl-[80px] flex-1">
         <Outlet />
       </section>
     </main>

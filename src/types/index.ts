@@ -12,7 +12,7 @@ type EducatorDetails = {
   _id: string;
   name: string;
   email: string;
-  profilePic: string;
+  profilePicture: string;
   //   bio: string;
   createdAt: string;
   updatedAt: string;
@@ -43,6 +43,7 @@ type CourseSession = {
 };
 
 type EnrolledCourse = {
+  _id: string;
   studentId: string;
   courseId: string;
   status: string;
@@ -58,4 +59,15 @@ export type {
   SessionDetail,
   CourseSession,
   EnrolledCourse,
+};
+
+export type RegisterUser = {
+  email: string;
+  password: string;
+  profilePic?: string;
+};
+
+export type LoginUser = {
+  email: string;
+  password: string;
 };

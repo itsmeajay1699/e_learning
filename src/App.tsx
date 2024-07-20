@@ -7,7 +7,7 @@ function App() {
   return (
     <Suspense fallback={<NamedLoading />}>
       {/* <ToastContainer theme="colored" /> */}
-      <Toaster />
+      <Toaster richColors={true} />
       <RouterProvider router={router} />
     </Suspense>
   );

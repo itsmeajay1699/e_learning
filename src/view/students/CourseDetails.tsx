@@ -1,5 +1,8 @@
 import { useLocation, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import Axios from "@/utils";
 // {
 //     _id: "668d79ba3bfd352ff3e3899d",
 //     educatorId: "61035436-4e1d-4e7b-b102-31e0304d13ea",
@@ -59,7 +62,26 @@ const CourseDetails = () => {
   const { courseId } = useParams();
   console.log(courseId);
   const location = useLocation();
-  //   console.log(location.state.course);
+
+  const path = location.pathname.split("/")[1];
+
+  const enrolledCourse = async (courseId: string, educatorId: string) => {
+    try {
+      const response = await Axios.post(`/course/enrolled-course/${courseId}`, {
+        educatorId,
+      });
+
+      toast.success(response.data.message, {
+        position: "top-right",
+        className: "bg-green-500 p-4 rounded-lg text-white",
+      });
+    } catch (err) {
+      toast.error(err.response.data.error, {
+        position: "top-right",
+        className: "bg-red-500 p-4 rounded-lg text-white",
+      });
+    }
+  };
 
   return (
     <section>
@@ -97,9 +119,19 @@ const CourseDetails = () => {
                 </p>
               </div>
 
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2">
-                Enroll Now
-              </button>
+              {path === "student" && (
+                <button
+                  onClick={() =>
+                    enrolledCourse(
+                      location.state.course._id,
+                      location.state.course.educatorId
+                    )
+                  }
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
+                >
+                  Enroll Now
+                </button>
+              )}
             </div>
           </div>
         </div>

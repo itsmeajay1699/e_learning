@@ -14,11 +14,18 @@ import EducatorHome from "../view/educator/EducatorHome";
 import EducatorDashboard from "../view/educator/EducatorDashboard";
 import UploadCourses from "../view/educator/UploadCourses";
 import MyCourses from "../view/educator/MyCourses";
+import Protect from "@/middleware/Protect";
+import ForLogin from "@/middleware/ForLogin";
+import EnrolledCourses from "@/view/students/EnrolledCourses";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<>NOT FOUND</>}>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<ForLogin />}>
+        <Route path="" element={<Login />} />
+      </Route>
+      <Route path="" element={<Protect />} />
+      {/* Student Routes */}
       <Route path="/student" element={<ProtectedRoute userRole={1} />}>
         <Route path="" element={<StudentHome />}>
           <Route
@@ -31,6 +38,7 @@ const router = createBrowserRouter(
             <Route path=":courseId" element={<CourseDetails />} />
           </Route>
           <Route path="profile" element={<div>Profile</div>} />
+          <Route path="enrolled-courses" element={<EnrolledCourses />} />
         </Route>
       </Route>
 

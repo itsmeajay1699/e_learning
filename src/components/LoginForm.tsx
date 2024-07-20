@@ -1,19 +1,105 @@
+import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginUser } from "@/types";
+import { toast } from "sonner";
+import Axios from "@/utils";
+import { Link, Navigate } from "react-router-dom";
+
+const Schema = z.object({
+  email: z.string().email({
+    message: "Please enter a valid email",
+  }),
+  password: z.string().min(6, {
+    message: "Password should be at least 6 characters long",
+  }),
+});
+
 const LoginForm = ({
   setShowLogin,
 }: {
   setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginUser>({
+    resolver: zodResolver(Schema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: LoginUser) => {
+    try {
+      const { email, password } = data;
+
+      const res = await Axios.post("/auth/login", {
+        email,
+        password,
+      });
+
+      if (!res) {
+        throw new Error("invalid creadentials");
+      }
+
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      // now working right now because of the Navigate component
+      // if (res.data.user.role === "1") {
+      //   return <Navigate to="/student" />;
+      // } else if (res.data.user.role === "2") {
+      //   return <Navigate to="/educator" />;
+      // }
+
+      toast.success(res.data.message, {
+        position: "top-right",
+        className: "bg-green-500 text-white p-4 rounded-lg",
+        duration: 1000,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      toast.error("invalid creadentials", {
+        position: "top-right",
+        className: "bg-red-500 text-white p-4 rounded-lg",
+        duration: 1000,
+      });
+    }
+  };
+
   return (
     <div>
       <div className="pb-8">
-        <form action="">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col space-y-5"
+        >
           <div className="flex flex-col space-y-5">
             <div className="flex flex-col gap-3">
               <label htmlFor="email">Email</label>
-              <input type="text" placeholder="john@gmail.com" />
+              <input
+                {...register("email")}
+                type="text"
+                placeholder="john@gmail.com"
+              />
+
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
 
               <label htmlFor="password">Password</label>
-              <input placeholder="********" type="password" />
+              <input
+                {...register("password")}
+                placeholder="********"
+                type="password"
+              />
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
             </div>
             <button
               type="submit"

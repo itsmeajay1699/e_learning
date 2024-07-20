@@ -26,10 +26,10 @@ const Login = () => {
                   //   scale: 0.3,
                   //   transition: { duration: 0.3 },
                   // }}
-                  transition={{ ease: "easeInOut", duration: 1.5 }}
+                  transition={{ ease: "easeInOut", duration: 1 }}
                   className="tab w-full max-w-[450px] m-auto flex flex-col justify-center text-white rounded-3xl p-6"
                 >
-                  <h1 className="login-head mb-5 font-bold">Login</h1>
+                  <div className="login-head mb-5 font-bold">Login</div>
                   <p className="text-2xl font-normal">
                     Welcome onboard with us!
                   </p>
@@ -51,10 +51,10 @@ const Login = () => {
                   //   scale: 0.3,
                   //   transition: { duration: 0.3 },
                   // }}
-                  transition={{ ease: "easeInOut", duration: 1.5 }}
+                  transition={{ ease: "easeInOut", duration: 1 }}
                   className="tab w-full max-w-[450px] m-auto flex flex-col justify-center text-white rounded-3xl p-6"
                 >
-                  <h1 className="login-head mb-5 font-bold">Register</h1>
+                  <div className="login-head mb-5 font-bold">Register</div>
                   <p className="text-2xl font-normal">
                     Welcome onboard with us!
                   </p>

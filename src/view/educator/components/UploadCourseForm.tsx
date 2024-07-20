@@ -1,4 +1,12 @@
 import ImageUpload from "../../../components/ImageUpload";
+import { useState, useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+type CategoryType = {
+  _id: string;
+  categoryName: string;
+  categoryNameLowerCase: string;
+};
 
 const UploadCourseForm = ({
   form,
@@ -31,6 +39,22 @@ const UploadCourseForm = ({
   setValues: any;
   remove: any;
 }) => {
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await fetch("http://localhost:5000/api/category");
+
+      if (!res.ok) {
+        return;
+      }
+      const data = await res.json();
+      setCategories(data.data);
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <div>
       <form className="grid space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -60,17 +84,61 @@ const UploadCourseForm = ({
           )}
         </div>
 
-        <div>
-          <ImageUpload
-            image={image}
-            inputRef={inputRef}
-            handleImgChange={handleImgChange}
-            cleanUp={cleanUp}
-          />
+        <div className="flex flex-col gap-4">
+          <label htmlFor="category">Category</label>
+          <select
+            id="category"
+            {...register("categoryId")}
+            className="border border-gray-300 rounded-lg p-2"
+          >
+            {categories.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.categoryName}
+              </option>
+            ))}
+          </select>
+          {errors.category && (
+            <span className="text-red-500">{errors.category.message}</span>
+          )}
         </div>
-        {errors.image && (
-          <span className="text-red-500">{errors.image.message}</span>
-        )}
+
+        <div>
+          <Tabs defaultValue="account" className="">
+            <TabsList className="mb-4">
+              <TabsTrigger value="account">
+                Thumbnail Link From Google
+              </TabsTrigger>
+              <TabsTrigger value="password">Upload Thumbnail</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <div className="flex flex-col gap-4">
+                <input
+                  type="text"
+                  id="thumbnailLinkFromGoogle"
+                  placeholder="Thumbnail Link From Google"
+                  {...register("thumbnailLink")}
+                  className="border border-gray-300 rounded-lg p-2"
+                />
+              </div>
+            </TabsContent>
+            <TabsContent value="password">
+              <div>
+                <ImageUpload
+                  image={image}
+                  inputRef={inputRef}
+                  handleImgChange={handleImgChange}
+                  cleanUp={cleanUp}
+                />
+                {errors.image && (
+                  <span className="text-red-500">{errors.image.message}</span>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+          {errors.thumbnailLink && (
+            <span className="text-red-500">{errors.thumbnailLink.message}</span>
+          )}
+        </div>
 
         <div className="flex flex-col gap-4">
           <label htmlFor="price">Price</label>
@@ -103,8 +171,8 @@ const UploadCourseForm = ({
             {...register("status")}
             className="border border-gray-300 rounded-lg p-2"
           >
-            <option value="active">Active</option>
-            <option value="inactive">InActive</option>
+            <option value="1">Active</option>
+            <option value="2">InActive</option>
           </select>
           {errors.status && (
             <span className="text-red-500">{errors.status.message}</span>
@@ -138,7 +206,8 @@ const UploadCourseForm = ({
                     />
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[0].sessionNumber?.message ?? ""}
+                        {errors.sessionDetails[index].sessionNumber?.message ??
+                          ""}
                       </span>
                     )}
 
@@ -151,7 +220,7 @@ const UploadCourseForm = ({
 
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[0].title?.message ?? ""}
+                        {errors.sessionDetails[index].title?.message ?? ""}
                       </span>
                     )}
 
@@ -164,7 +233,8 @@ const UploadCourseForm = ({
 
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[0].description?.message ?? ""}
+                        {errors.sessionDetails[index].description?.message ??
+                          ""}
                       </span>
                     )}
                   </div>

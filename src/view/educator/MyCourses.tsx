@@ -1,7 +1,6 @@
 import Axio from "axios";
 import { CourseSession } from "../../types";
 import React, { useEffect, useState } from "react";
-import { z } from "zod";
 import CourseCard from "../students/components/CourseCard";
 
 const MyCourses = () => {
@@ -11,7 +10,7 @@ const MyCourses = () => {
     const fetchMyCourses = async () => {
       try {
         const { data } = await Axio.get(
-          "http://localhost:5000/api/course/my-courses/61035436-4e1d-4e7b-b102-31e0304d13ea"
+          "http://localhost:5000/api/course/my-courses"
         );
         setMyCourses(data.data);
       } catch (error) {
@@ -20,6 +19,8 @@ const MyCourses = () => {
     };
     fetchMyCourses();
   }, []);
+
+  console.log(myCourses);
 
   return (
     <div>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logoImg from "../../../../public/icons/logo.png";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
+import Axios from "@/utils";
 
 type SidebarItem = {
   name: string;
@@ -10,8 +12,59 @@ type SidebarItem = {
   link: string;
 };
 
-const StudentSideBar = ({ item }: { item: SidebarItem[] }) => {
+const StudentSideBar = ({
+  item,
+  ReactNode,
+}: {
+  item: SidebarItem[];
+  ReactNode?: JSX.Element;
+}) => {
   const location = useLocation();
+
+  const logOut = async () => {
+    try {
+      localStorage.removeItem("user");
+
+      const response = await Axios.post("/auth/logout");
+
+      console.log(response.data.message);
+
+      toast.success(response.data.message, {
+        position: "top-right",
+        className: "bg-green-500 p-4 rounded-lg text-white",
+      });
+
+      window.location.href = "/login";
+    } catch (err) {
+      toast.error(err.message, {
+        position: "top-right",
+        className: "bg-red-500 p-4 rounded-lg text-white",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const ul = document.querySelector(".sidebar__nav");
+
+    const logoutButton = document.createElement("li");
+    logoutButton.className = "sidebar__nav-item logout";
+    logoutButton.innerHTML = `
+      <div class="md:flex-1">
+        <button class="sidebar__nav-link">
+          <img class="sidebar__nav-icon-svg" src="../../../../public/icons/user-logout.png" alt="" />
+          <span class="hide min-w-fit logout-span">Logout</span>
+        </button>
+      </div>
+    `;
+
+    logoutButton.addEventListener("click", logOut);
+
+    ul?.appendChild(logoutButton);
+
+    return () => {
+      ul?.removeChild(logoutButton);
+    };
+  }, []);
 
   return (
     <aside className="sidebar">
@@ -46,12 +99,15 @@ const StudentSideBar = ({ item }: { item: SidebarItem[] }) => {
                     src={item.src}
                     alt=""
                   />
-                  <span className="hide">{item.name}</span>
+                  <span className="hide min-w-fit">{item.name}</span>
                 </Link>
               </motion.div>
             </li>
           ))}
         </ul>
+        <div className="absolute bottom-0 left-0 right-0 p-2 bg-green-200">
+          {ReactNode && ReactNode}
+        </div>
       </div>
     </aside>
   );

@@ -25,11 +25,14 @@ const CourseCard = ({
   return (
     <Link key={course._id} state={{ course }} to={`${toGO}/${course._id}`}>
       <motion.div
-        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
         className="bg-white shadow-lg rounded-md p-4 cursor-pointer"
       >
-        <img
+        <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
           src={thumbnail}
           alt={title}
           className="w-full h-44 object-cover rounded-md"

@@ -14,7 +14,7 @@ const ImageUpload = ({
 }) => {
   return (
     <div>
-      <h1>Image upload</h1>
+      {/* <h1>Image upload</h1> */}
 
       {image && (
         <div className="flex">
@@ -33,7 +33,7 @@ const ImageUpload = ({
       <div
         className={`${
           image ? "hidden" : "block"
-        } border border-gray-300 rounded-lg p-4 flex justify-center items-center mt-6`}
+        } border border-gray-300 rounded-lg p-4 flex justify-center items-center mt-4 mb-4`}
       >
         <input
           type="file"

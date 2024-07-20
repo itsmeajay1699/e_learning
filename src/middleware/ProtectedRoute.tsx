@@ -1,15 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ userRole }: { userRole: number }) => {
-  // 1 student and 2 educator
+const ProtectedRoute = ({ userRole }) => {
+  let user = localStorage.getItem("user");
+  user = user ? JSON.parse(user) : null;
 
-  if (userRole === 1) {
-    return <Outlet />;
-  } else if (userRole === 2) {
-    return <Outlet />;
-  } else {
-    return <h1>Not Authorized</h1>;
+  if (!user || user.role !== userRole.toString()) {
+    return <Navigate to="/login" replace />;
   }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
