@@ -39,6 +39,7 @@ const router = createBrowserRouter(
           </Route>
           <Route path="profile" element={<div>Profile</div>} />
           <Route path="enrolled-courses" element={<EnrolledCourses />} />
+          <Route path="chat" element={<div>Chat</div>} />
         </Route>
       </Route>
 

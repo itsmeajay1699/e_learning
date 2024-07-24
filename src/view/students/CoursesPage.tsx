@@ -566,8 +566,6 @@ const CoursesPage = () => {
     fetchCourses();
   }, [categoryId, page, limit]);
 
-  console.log(page);
-
   return (
     <section>
       <div>

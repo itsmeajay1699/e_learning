@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Axios, { handleEnrollCourse } from "@/utils";
 import ThreeDots from "@/components/ThreeDots";
 import { cn } from "@/lib/utils";
+import { useSocket } from "@/context/socketContext";
+import ChatEventEnum from "@/constant";
 
 // const data = [
 //   {
@@ -309,6 +311,8 @@ const StudentDashBoard = () => {
     []
   );
 
+  const { socket } = useSocket();
+
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
       try {
@@ -320,6 +324,16 @@ const StudentDashBoard = () => {
     };
     fetchEnrolledCourses();
   }, []);
+
+  useEffect(() => {
+    socket?.on(ChatEventEnum.CONNECTED_EVENT, (data) => {
+      console.log(data);
+    });
+
+    socket?.on("enrolled-courses", (data) => {
+      console.log(data);
+    });
+  }, [socket]);
 
   return (
     <section className="bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">

@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import Axios from "@/utils";
+import { useSocket } from "@/context/socketContext";
+import ChatEventEnum from "@/constant";
 // {
 //     _id: "668d79ba3bfd352ff3e3899d",
 //     educatorId: "61035436-4e1d-4e7b-b102-31e0304d13ea",
@@ -82,6 +84,17 @@ const CourseDetails = () => {
       });
     }
   };
+
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket?.on(ChatEventEnum.NEW_CHAT_ROOM_EVENT, (data) => {
+      console.log(data);
+    });
+    return () => {
+      socket?.off(ChatEventEnum.NEW_CHAT_ROOM_EVENT);
+    };
+  }, [socket]);
 
   return (
     <section>

@@ -19,7 +19,7 @@ const sidebarItems = [
   },
   {
     name: "Chat",
-    src: "../../../../public/icons/chat.png",
+    src: "../../../../public/icons/speech-bubble.png",
     link: "/student/chat",
   },
 

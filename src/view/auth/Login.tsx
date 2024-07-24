@@ -12,9 +12,9 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 1 }}
     >
-      <main className="main-banner">
+      <main className="main-banner relative">
         <div className="flex flex-col justify-end md:items-end items-center">
-          <div className="p-6 md:p-0 md:relative top-10 right-36 w-full max-w-[450px]">
+          <div className="p-6 md:p-0 md:relative top-10 right-36 w-full max-w-[450px] z-20">
             <AnimatePresence>
               {showLogin && (
                 <motion.div
@@ -29,8 +29,8 @@ const Login = () => {
                   transition={{ ease: "easeInOut", duration: 1 }}
                   className="tab w-full max-w-[450px] m-auto flex flex-col justify-center text-white rounded-3xl p-6"
                 >
-                  <div className="login-head mb-5 font-bold">Login</div>
-                  <p className="text-2xl font-normal">
+                  <div className="login-head mb-5 font-bold ">Login</div>
+                  <p className="text-2xl font-normal ">
                     Welcome onboard with us!
                   </p>
                   <div className="mt-10">
@@ -69,7 +69,18 @@ const Login = () => {
               )}
             </AnimatePresence>
           </div>
+
+          <div className="absolute top-[20%] left-[10%] md:text-[120px] text-[80px] z-10">
+            <h1 className="text-gradient">
+              Welcome to <br />{" "}
+            </h1>
+            <h1 className="text-gradient">
+              <span className="text-5xl">Edu</span>Learn
+            </h1>
+          </div>
         </div>
+
+        <div className="overlay" aria-hidden="true" />
       </main>
     </motion.div>
   );

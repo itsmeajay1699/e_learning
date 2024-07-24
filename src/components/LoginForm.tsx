@@ -46,6 +46,7 @@ const LoginForm = ({
       }
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
 
       // now working right now because of the Navigate component
       // if (res.data.user.role === "1") {
