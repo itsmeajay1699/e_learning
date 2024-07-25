@@ -132,10 +132,9 @@ const ChattingComponent = ({
         ref={divRef}
         className="h-[calc(100dvh-4rem-10rem)] overflow-y-auto p-4 bg-white rounded-lg shadow-md relative mt-4"
       >
-        {allMessages.map((item, index) => (
-          <div>
+        {allMessages.map((item) => (
+          <div key={item.id}>
             <div
-              key={index}
               className={`${
                 item.senderId === originalUserId
                   ? "flex justify-end"
