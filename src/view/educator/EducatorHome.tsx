@@ -1,5 +1,5 @@
 import StudentSideBar from "../students/components/StudentSideBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Chart from "../../components/SidebarChat";
 const item = [
@@ -26,9 +26,11 @@ const item = [
 ];
 
 const EducatorHome = () => {
+  const location = useLocation();
+  const path = location.pathname;
   return (
     <main className="flex gap-4 p-[1rem]">
-      <div className="">
+      <div className={`${path.split("/")[2] === "chat" ? "hidden" : ""}`}>
         <StudentSideBar item={item} ReactNode={<Chart />} />
       </div>
       <section className="w-full flex-1">

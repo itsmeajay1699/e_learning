@@ -46,6 +46,28 @@ const ChattingComponent = ({
     setAllMessages((prev) => [...prev, message]);
   };
 
+  const typingTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
+  const stopTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
+  const isTyping = () => {
+    const timer = 3000; // 5 seconds
+
+    // Clear previous timer
+    if (typingTimeout.current) {
+      clearTimeout(typingTimeout.current);
+    }
+
+    // Set new timer
+    typingTimeout.current = setTimeout(() => {
+      socket?.emit(ChatEventEnum.IS_TYPING_START_EVENT, {
+        roomId,
+        userId: user.id,
+        typing: true,
+      });
+    }, timer);
+  };
+
   React.useEffect(() => {
     socket?.on(ChatEventEnum.MESSAGE_RECEIVED_EVENT, recievedMessage);
     // socket?.on(ChatEventEnum.MESSAGE_RECEIVED_EVENT, (message: Message) => {
@@ -139,12 +161,30 @@ const ChattingComponent = ({
         onSubmit={(e) => {
           e.preventDefault();
           handleSendMessage();
+          if (inputRef.current) {
+            inputRef.current.blur();
+          }
         }}
         className="absolute bottom-0 left-0 w-full flex items-start gap-2 px-4"
       >
         <input
           type="text"
+          onChange={isTyping}
           ref={inputRef}
+          onBlur={() => {
+            const timer = 3000;
+            if (stopTimeout.current) {
+              clearTimeout(stopTimeout.current);
+            }
+
+            stopTimeout.current = setTimeout(() => {
+              socket?.emit(ChatEventEnum.IS_TYPING_START_EVENT, {
+                roomId,
+                userId: user.id,
+                typing: false,
+              });
+            }, timer);
+          }}
           placeholder="Type a message"
           className="w-full p-2 rounded-lg shadow-md"
         />

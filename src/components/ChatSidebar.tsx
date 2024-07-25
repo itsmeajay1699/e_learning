@@ -1,6 +1,8 @@
+import ChatEventEnum from "@/constant";
+import { useSocket } from "@/context/socketContext";
 import { ChatRoom } from "@/types";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const ChatSidebar = ({
   chatRoom,
@@ -29,12 +31,30 @@ const ChatSidebar = ({
     roomId: string;
   };
 }) => {
-  useEffect(() => {
-    console.log("rerendered");
-    console.log(user);
-  }, [user]);
-
   const navigate = useNavigate();
+
+  const { socket } = useSocket();
+
+  const [isTyping, setIsTyping] = useState<{
+    [key: string]: boolean;
+  }>({
+    roomId: false,
+  });
+
+  useEffect(() => {
+    socket?.on(ChatEventEnum.IS_TYPING_START_EVENT, (data) => {
+      // also persist the previous state
+      setIsTyping((prev) => ({
+        ...prev,
+        [data.roomId]: data.typing,
+      }));
+    });
+
+    return () => {
+      socket?.off(ChatEventEnum.IS_TYPING_START_EVENT);
+    };
+  }, [socket]);
+
   return (
     <aside className="sidebar sidebar-chat">
       <div className="sidebar-wrapper">
@@ -70,7 +90,10 @@ const ChatSidebar = ({
                   return;
                 }
                 setUser({
-                  id: originalUserId,
+                  id:
+                    item.participant1 === originalUserId
+                      ? item.participant2_educator.id
+                      : item.participant1_student.id,
                   email:
                     item.participant1 === originalUserId
                       ? item.participant2_educator.email
@@ -118,7 +141,15 @@ const ChatSidebar = ({
                     </span>
 
                     <span className="text-[12px] text-gray-600">
-                      {item.lastMessage || "No message"}
+                      {isTyping[item.id] ? (
+                        <div className="text-xs text-green-500">Typing...</div>
+                      ) : (
+                        <div className="text-xs text-gray-500">
+                          {item.lastMessage
+                            ? item.lastMessage
+                            : "No message yet"}
+                        </div>
+                      )}
                     </span>
                   </div>
                 </div>
