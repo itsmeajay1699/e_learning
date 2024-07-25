@@ -114,11 +114,24 @@ const EducatorDashboard = () => {
 
   return (
     <div>
-      <h1>Educator Dashboard</h1>
+      <div
+        className="bg-gray-200 p-4 flex items-start gap-4 rounded-lg shadow-md"
+        style={{ height: "100px" }}
+      >
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVn20gDEs5CG_H0rBnJvuJWAVuK3B_wnC-tg&s"
+          alt="profile pic"
+          className="rounded-full h-20 w-20 object-cover"
+        />
+        <h1>Educator Name</h1>
+      </div>
 
       <div className="mt-5">
         <h1 className="text-xl font-bold">My Courses</h1>
-        <CourseTable columns={colummn} data={myCourses} />
+        <CourseTable
+          columns={colummn as ColumnDef<object>[]}
+          data={myCourses}
+        />
       </div>
     </div>
   );

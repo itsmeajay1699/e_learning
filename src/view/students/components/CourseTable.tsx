@@ -12,9 +12,7 @@ const CourseTable = <T extends object[], T1 extends ColumnDef<object>[]>({
 
   return (
     <div>
-      <div className="table-wrapper">
-        <Table data={data} columns={columns} />
-      </div>
+      <Table data={data} columns={columns} />
     </div>
   );
 };

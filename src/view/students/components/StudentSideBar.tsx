@@ -36,7 +36,7 @@ const StudentSideBar = ({
 
       window.location.href = "/login";
     } catch (err) {
-      toast.error(err.message, {
+      toast.error((err as Error).message as string, {
         position: "top-right",
         className: "bg-red-500 p-4 rounded-lg text-white",
       });
@@ -78,7 +78,7 @@ const StudentSideBar = ({
           {item.map((item, index) => (
             <li
               key={index}
-              className={`sidebar__nav-item ${
+              className={`sidebar__nav-item  ${
                 location.pathname === item.link ? "active" : ""
               }`}
             >
@@ -86,7 +86,7 @@ const StudentSideBar = ({
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{
-                  delay: 0.1 * index,
+                  // delay: 0.1 * index,
                   damping: 30,
                 }}
                 className="md:flex-1"

@@ -14,6 +14,11 @@ const item = [
     link: "/educator/my-courses",
   },
   {
+    name: "Chat",
+    src: "../../../../public/icons/speech-bubble.png",
+    link: "/educator/chat",
+  },
+  {
     name: "Upload Course",
     src: "../../../../public/icons/enrolled-courses.png",
     link: "/educator/upload-course",
@@ -26,8 +31,10 @@ const EducatorHome = () => {
       <div className="">
         <StudentSideBar item={item} ReactNode={<Chart />} />
       </div>
-      <section className="md:ml-[280px] ml-[80px] flex-1">
-        <Outlet />
+      <section className="w-full flex-1">
+        <div className="md:ml-[280px] ml-[80px]">
+          <Outlet />
+        </div>
       </section>
     </main>
   );

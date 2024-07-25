@@ -17,6 +17,7 @@ import MyCourses from "../view/educator/MyCourses";
 import Protect from "@/middleware/Protect";
 import ForLogin from "@/middleware/ForLogin";
 import EnrolledCourses from "@/view/students/EnrolledCourses";
+import ChatComponent from "@/components/ChatComponent";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
           </Route>
           <Route path="profile" element={<div>Profile</div>} />
           <Route path="enrolled-courses" element={<EnrolledCourses />} />
-          <Route path="chat" element={<div>Chat</div>} />
+          <Route path="chat" element={<ChatComponent />} />
         </Route>
       </Route>
 
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
             <Route path=":courseId" element={<CourseDetails />} />
           </Route>
           <Route path="upload-course" element={<UploadCourses />} />
+          <Route path="chat" element={<ChatComponent />} />
         </Route>
       </Route>
     </Route>

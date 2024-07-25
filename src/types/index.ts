@@ -71,3 +71,33 @@ export type LoginUser = {
   email: string;
   password: string;
 };
+
+export type Message = {
+  id: string;
+  chatRoomId: string;
+  senderId: string;
+  message: string;
+  senderType: "student" | "educator";
+};
+
+export type ChatRoom = {
+  id: string;
+  courseId: string;
+  participant1: string;
+  participant2: string;
+  lastMessage: string;
+  courseDetails: {
+    title: string;
+    thumbnail: string;
+  };
+  participant1_student: {
+    id: string;
+    email: string;
+    profilePicture: string;
+  };
+  participant2_educator: {
+    id: string;
+    email: string;
+    profilePicture: string;
+  };
+};

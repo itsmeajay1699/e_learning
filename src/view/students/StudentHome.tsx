@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import StudentSideBar from "./components/StudentSideBar";
 
 const sidebarItems = [
@@ -31,13 +31,18 @@ const sidebarItems = [
 ];
 
 const StudentHome = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
   return (
     <main className="flex gap-4 p-[1rem]">
-      <div className="">
+      <div className={`${path.split("/")[2] === "chat" ? "hidden" : ""}`}>
         <StudentSideBar item={sidebarItems} />
       </div>
-      <section className="md:pl-[280px] pl-[80px] flex-1">
-        <Outlet />
+      <section className="flex-1 w-full">
+        <div className="md:pl-[280px] pl-[80px]">
+          <Outlet />
+        </div>
       </section>
     </main>
   );
