@@ -6,7 +6,7 @@ import { io, Socket } from "socket.io-client";
 const getSocket = () => {
   // const token = localStorage.getItem("token");
 
-  return io(import.meta.env.VITE_WEBSOCKET_PROD, {
+  return io("https://e-learning-backend-lzgl.onrender.com", {
     withCredentials: true,
     auth: {
       // token,
