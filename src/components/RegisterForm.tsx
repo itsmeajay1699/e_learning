@@ -153,12 +153,12 @@ const RegisterForm = ({
             <div className="flex justify-center items-center gap-5 mt-5">
               <img
                 className="w-8 h-8"
-                src="/public/icons/fb.png"
+                src="/icons/fb.png"
                 alt="fb-logo"
               />
               <img
                 className="w-8 h-8"
-                src="/public/icons/google.png"
+                src="/icons/google.png"
                 alt="fb-logo"
               />
             </div>
