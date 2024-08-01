@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import StudentSideBar from "./components/StudentSideBar";
+import { useEffect, useRef } from "react";
 
 const sidebarItems = [
   {
@@ -33,14 +34,42 @@ const sidebarItems = [
 const StudentHome = () => {
   const location = useLocation();
   const path = location.pathname;
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      if (sidebarRef.current) {
+        const sidebarDiv = document.querySelector(".sidebar-handle-width");
+        const sidebarWidth = sidebarRef.current.offsetWidth;
+        if (sidebarDiv) {
+          (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
+        }
+      }
+    };
+
+    const observer = new ResizeObserver(updatePadding);
+
+    if (sidebarRef.current) {
+      observer.observe(sidebarRef.current);
+    }
+
+    // Set initial padding
+    updatePadding();
+
+    return () => {
+      if (sidebarRef.current) {
+        observer.unobserve(sidebarRef.current);
+      }
+    };
+  }, []);
 
   return (
     <main className="flex gap-4 p-[1rem]">
       <div className={`${path.split("/")[2] === "chat" ? "hidden" : ""}`}>
-        <StudentSideBar item={sidebarItems} />
+        <StudentSideBar sidebarRef={sidebarRef} item={sidebarItems} />
       </div>
-      <section className="flex-1 w-full">
-        <div className="md:pl-[280px] pl-[80px]">
+      <section className={`flex-1 w-full `}>
+        <div className="sidebar-handle-width">
           <Outlet />
         </div>
       </section>

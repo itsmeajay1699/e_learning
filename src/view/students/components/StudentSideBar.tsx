@@ -15,9 +15,11 @@ type SidebarItem = {
 const StudentSideBar = ({
   item,
   ReactNode,
+  sidebarRef,
 }: {
   item: SidebarItem[];
   ReactNode?: JSX.Element;
+  sidebarRef?: React.RefObject<HTMLDivElement>;
 }) => {
   const location = useLocation();
 
@@ -67,7 +69,7 @@ const StudentSideBar = ({
   }, []);
 
   return (
-    <aside className="sidebar">
+    <div ref={sidebarRef} className="sidebar">
       <div className="sidebar-wrapper">
         <div className="sidebar__logo">
           <img src={logoImg} alt="logo" />
@@ -109,7 +111,7 @@ const StudentSideBar = ({
           {ReactNode && ReactNode}
         </div>
       </div>
-    </aside>
+    </div>
   );
 };
 
