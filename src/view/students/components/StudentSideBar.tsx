@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import logoImg from "../../../../public/icons/logo.png";
+import logoImg from "/public/icons/logo.png";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -53,7 +53,7 @@ const StudentSideBar = ({
     logoutButton.innerHTML = `
       <div class="md:flex-1">
         <button class="sidebar__nav-link">
-          <img class="sidebar__nav-icon-svg" src="../../../../public/icons/user-logout.png" alt="" />
+          <img class="sidebar__nav-icon-svg" src="/public/icons/user-logout.png" alt="" />
           <span class="hide min-w-fit logout-span">Logout</span>
         </button>
       </div>

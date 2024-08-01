@@ -5,28 +5,28 @@ import { useEffect, useRef } from "react";
 const sidebarItems = [
   {
     name: "Dashboard",
-    src: "../../../../public/icons/home.svg",
+    src: "/public/icons/home.svg",
     link: "/student/dashboard",
   },
   {
     name: "Courses",
-    src: "../../../../public/icons/courses.png",
+    src: "/public/icons/courses.png",
     link: "/student/courses",
   },
   {
     name: "Enrolled Courses",
-    src: "../../../../public/icons/enrolled-course.png",
+    src: "/public/icons/enrolled-course.png",
     link: "/student/enrolled-courses",
   },
   {
     name: "Chat",
-    src: "../../../../public/icons/speech-bubble.png",
+    src: "/public/icons/speech-bubble.png",
     link: "/student/chat",
   },
 
   {
     name: "Profile",
-    src: "../../../../public/icons/people.png",
+    src: "/public/icons/people.png",
     link: "/student/profile",
   },
 ];
