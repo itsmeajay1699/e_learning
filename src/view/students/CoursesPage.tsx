@@ -1,6 +1,6 @@
 import CourseCard from "./components/CourseCard";
 import { motion } from "framer-motion";
-import { EnrolledCourse } from "@/types";
+import { CourseSession } from "@/types";
 import { useState, useEffect } from "react";
 import Axios from "@/utils";
 import Filter from "@/components/Filter";
@@ -548,10 +548,11 @@ import Filter from "@/components/Filter";
 // ];
 
 const CoursesPage = () => {
-  const [data, setData] = useState<EnrolledCourse[]>([]);
+  const [data, setData] = useState<CourseSession[]>([]);
   const [categoryId, setCategoryId] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
+
   const [limit, setLimit] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
 
@@ -574,6 +575,8 @@ const CoursesPage = () => {
         </div>
 
         <h1>All Courses</h1>
+        {/* this will remove and do increase the limit when i want to increase or decrese now 10 is fine */}
+        <div onClick={() => setLimit((prev) => prev + 1)}></div>
         <div className="grid-container mt-5">
           {data.map((course, index) => (
             <motion.div

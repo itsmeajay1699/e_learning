@@ -4,12 +4,12 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
 const getSocket = () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   return io("http://localhost:5000", {
     withCredentials: true,
     auth: {
-      token,
+      // token,
     },
   });
 };

@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterUser } from "@/types";
 import { toast } from "sonner";
 import Axios from "@/utils";
-import { Navigate } from "react-router-dom";
 
 const spring = {
   type: "spring",

@@ -35,6 +35,8 @@ const EducatorHome = () => {
     const updatePadding = () => {
       if (sidebarRef.current) {
         const sidebarDiv = document.querySelector(".sidebar-handle-width");
+        4;
+        console.log(sidebarDiv);
         const sidebarWidth = sidebarRef.current.offsetWidth;
         if (sidebarDiv) {
           (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
@@ -60,9 +62,13 @@ const EducatorHome = () => {
   return (
     <main className="flex gap-4 p-[1rem]">
       <div className={`${path.split("/")[2] === "chat" ? "hidden" : ""}`}>
-        <StudentSideBar item={item} ReactNode={<Chart />} />
+        <StudentSideBar
+          sidebarRef={sidebarRef}
+          item={item}
+          ReactNode={<Chart />}
+        />
       </div>
-      <section className="w-full flex-1">
+      <section className={`flex-1 w-full `}>
         <div className="sidebar-handle-width">
           <Outlet />
         </div>

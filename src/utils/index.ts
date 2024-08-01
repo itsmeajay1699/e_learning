@@ -1,15 +1,6 @@
 import Axios from "axios";
 import { toast } from "sonner";
-
-Axios.defaults.baseURL = "http://localhost:5000/api";
-
-Axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers;
-  }
-  return config;
-});
+Axios.defaults.baseURL = import.meta.env.VITE_API_URL_PROD;
 
 Axios.defaults.withCredentials = true;
 

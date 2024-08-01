@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 type StudentDetails = {
   _id: string;
   name: string;
@@ -101,3 +103,40 @@ export type ChatRoom = {
     profilePicture: string;
   };
 };
+
+export type User = {
+  _id: string;
+  email: string;
+  role: string;
+  profilePicture: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Category = {
+  _id: string;
+  categoryName: string;
+};
+
+export const schema = z.object({
+  title: z.string().min(5),
+  description: z.string().min(10),
+  price: z.string().min(1),
+  duration: z.string().min(1),
+  sessionDetails: z.array(
+    z.object({
+      sessionNumber: z.number().positive(),
+      title: z.string().min(5),
+      description: z.string().min(10),
+    })
+  ),
+  status: z.string().min(1),
+  totalEnrollment: z.number().optional(),
+  totalSession: z.number().positive().optional(),
+  rating: z.string().optional(),
+  thumbnail: z.string().optional(),
+  categoryId: z.string().min(1, {
+    message: "Please select a category",
+  }),
+  thumbnailLink: z.string().optional(),
+});

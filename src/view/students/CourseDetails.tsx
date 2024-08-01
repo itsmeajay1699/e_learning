@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import Axios from "@/utils";
 import { useSocket } from "@/context/socketContext";
 import ChatEventEnum from "@/constant";
+import { SessionDetail } from "@/types";
 // {
 //     _id: "668d79ba3bfd352ff3e3899d",
 //     educatorId: "61035436-4e1d-4e7b-b102-31e0304d13ea",
@@ -78,7 +79,7 @@ const CourseDetails = () => {
         className: "bg-green-500 p-4 rounded-lg text-white",
       });
     } catch (err) {
-      toast.error(err.response.data.error, {
+      toast.error((err as Error).message, {
         position: "top-right",
         className: "bg-red-500 p-4 rounded-lg text-white",
       });
@@ -165,17 +166,19 @@ const CourseDetails = () => {
 
             <div className="mt-4">
               <h3 className="text-lg font-semibold">Sessions</h3>
-              {location.state.course.sessionDetails.map((session: any) => (
-                <div key={session.sessionNumber} className="mt-2">
-                  <div>
-                    <span className="text-sm text-gray-500">
-                      Session {session.sessionNumber}
-                    </span>
-                    <h3 className="text-lg font-semibold">{session.title}</h3>
+              {location.state.course.sessionDetails.map(
+                (session: SessionDetail) => (
+                  <div key={session.sessionNumber} className="mt-2">
+                    <div>
+                      <span className="text-sm text-gray-500">
+                        Session {session.sessionNumber}
+                      </span>
+                      <h3 className="text-lg font-semibold">{session.title}</h3>
+                    </div>
+                    <p>{session.description}</p> 
                   </div>
-                  <p>{session.description}</p>
-                </div>
-              ))}
+                )
+              )}
 
               <h3 className="text-lg font-semibold mt-4">Course Information</h3>
 

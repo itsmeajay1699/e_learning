@@ -13,10 +13,25 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import Axios from "@/utils";
+import { Category } from "@/types";
+
+type Confiq = {
+  [key: string]: {
+    label: string;
+    color: string;
+  };
+};
+
+type ChartData = {
+  categoryName: string;
+  count: number;
+};
 
 const Chart = () => {
-  const [chartData, setChartData] = useState([]);
-  const [chartConfig, setChartConfig] = useState({});
+  const [chartData, setChartData] = useState<
+    { browser: string; visitors: number; fill: string }[]
+  >([]);
+  const [chartConfig, setChartConfig] = useState<Confiq>({});
 
   const defaultColors = [
     "hsl(var(--chart-1))",
@@ -26,19 +41,16 @@ const Chart = () => {
     "hsl(var(--chart-5))",
   ];
 
-  function createChartConfig(categories) {
-    return categories.reduce(
-      (config, category, index) => {
-        config[category] = {
-          label: category.charAt(0).toUpperCase() + category.slice(1), // Capitalize first letter
-          color: defaultColors[index % defaultColors.length],
-        };
-        return config;
-      },
-      { visitors: { label: "Courses" } } // Default config for visitors initial value
-    );
+  function createChartConfig(categories: string[]) {
+    return categories.reduce((config, category, index) => {
+      config[category.toLowerCase()] = {
+        label: category.charAt(0).toUpperCase() + category.slice(1), // Capitalize first letter
+        color: defaultColors[index % defaultColors.length],
+      };
+      return config;
+    }, {} as Confiq);
   }
-  function transformData(apiData) {
+  function transformData(apiData: ChartData[]) {
     return apiData.map((item) => ({
       browser: item.categoryName.toLowerCase(), // Normalize category name
       visitors: item.count,
@@ -50,7 +62,9 @@ const Chart = () => {
       try {
         const response = await Axios.get("course/courseCount");
         console.log(response.data.data);
-        const categories = response.data.data.map((item) => item.categoryName);
+        const categories = response.data.data.map(
+          (item: Category) => item.categoryName
+        );
         const chartConfig = createChartConfig(categories);
         setChartConfig(chartConfig);
         setChartData(transformData(response.data.data));

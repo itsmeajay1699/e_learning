@@ -1,8 +1,9 @@
+import { User } from "@/types";
 import { Navigate } from "react-router-dom";
 
 const Protect = () => {
-  let user = localStorage.getItem("user");
-  user = user ? JSON.parse(user) : null;
+  const userString = localStorage.getItem("user");
+  const user: User | null = userString ? JSON.parse(userString) : null;
 
   if (!user) {
     return <Navigate to="/login" replace />;

@@ -1,6 +1,6 @@
 import Axio from "axios";
 import { CourseSession } from "../../types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CourseCard from "../students/components/CourseCard";
 
 const MyCourses = () => {

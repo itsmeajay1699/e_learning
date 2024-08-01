@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUser } from "@/types";
 import { toast } from "sonner";
 import Axios from "@/utils";
-import { Link, Navigate } from "react-router-dom";
 
 const Schema = z.object({
   email: z.string().email({
@@ -46,7 +45,7 @@ const LoginForm = ({
       }
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("token", res.data.token);
 
       // now working right now because of the Navigate component
       // if (res.data.user.role === "1") {

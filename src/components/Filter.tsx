@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
+import { Category } from "@/types";
 
 const itemVariants: Variants = {
   open: {
@@ -92,7 +93,7 @@ const FilterCourseByCategory = ({
         className="bg-blue-500 text-white w-[300px]"
         variants={itemVariants}>Item 1 </motion.li> */}
 
-        {allCategories.map((category) => (
+        {allCategories.map((category: Category) => (
           <motion.li
             key={category._id}
             className="bg-blue-500 text-white w-[300px] p-2 border-b cursor-pointer hover:bg-blue-400"

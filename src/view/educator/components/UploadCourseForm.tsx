@@ -1,6 +1,17 @@
 import ImageUpload from "../../../components/ImageUpload";
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  FieldArrayWithId,
+  FieldErrors,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
+
+import { z } from "zod";
+import { schema } from "@/types";
 
 type CategoryType = {
   _id: string;
@@ -9,8 +20,6 @@ type CategoryType = {
 };
 
 const UploadCourseForm = ({
-  form,
-  register,
   handleSubmit,
   onSubmit,
   image,
@@ -21,23 +30,113 @@ const UploadCourseForm = ({
   errors,
   fields,
   append,
-  setValues,
   remove,
+  register,
 }: {
-  form: any;
-  register: any;
-  handleSubmit: any;
-  onSubmit: any;
-  image: any;
-  inputRef: any;
-  handleImgChange: any;
-  cleanUp: any;
+  handleSubmit: UseFormHandleSubmit<{
+    title: string;
+    description: string;
+    price: string;
+    duration: string;
+    totalEnrollment: number;
+    totalSession: number;
+    thumbnail: string;
+    categoryId: string;
+    sessionDetails: {
+      sessionNumber: number;
+      title: string;
+      description: string;
+    }[];
+    status: string;
+    rating: string;
+    thumbnailLink: string;
+  }>;
+  onSubmit: (data: z.infer<typeof schema>) => Promise<void>;
+  register: UseFormRegister<{
+    title: string;
+    description: string;
+    price: string;
+    duration: string;
+    totalEnrollment: number;
+    totalSession: number;
+    thumbnail: string;
+    categoryId: string;
+    sessionDetails: {
+      sessionNumber: number;
+      title: string;
+      description: string;
+    }[];
+    status: string;
+    rating: string;
+    thumbnailLink: string;
+  }>;
+  image: string | null;
+  inputRef: React.RefObject<HTMLInputElement>;
+  handleImgChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  cleanUp: () => void;
   loading: boolean;
-  errors: any;
-  fields: any;
-  append: any;
-  setValues: any;
-  remove: any;
+  errors: FieldErrors<{
+    title: string;
+    description: string;
+    price: string;
+    duration: string;
+    totalEnrollment: number;
+    totalSession: number;
+    thumbnail: string;
+    categoryId: string;
+    sessionDetails: {
+      sessionNumber: number;
+      title: string;
+      description: string;
+    }[];
+    status: string;
+    rating: string;
+    thumbnailLink: string;
+  }>;
+  fields: FieldArrayWithId<
+    {
+      title: string;
+      description: string;
+      price: string;
+      duration: string;
+      totalEnrollment: number;
+      totalSession: number;
+      thumbnail: string;
+      categoryId: string;
+      sessionDetails: {
+        sessionNumber: number;
+        title: string;
+        description: string;
+      }[];
+      status: string;
+      rating: number;
+      thumbnailLink: string;
+    },
+    "sessionDetails",
+    "id"
+  >[];
+  append: UseFieldArrayAppend<
+    {
+      title: string;
+      description: string;
+      price: string;
+      duration: string;
+      totalEnrollment: number;
+      totalSession: number;
+      thumbnail: string;
+      categoryId: string;
+      sessionDetails: {
+        sessionNumber: number;
+        title: string;
+        description: string;
+      }[];
+      status: string;
+      rating: string;
+      thumbnailLink: string;
+    },
+    "sessionDetails"
+  >;
+  remove: UseFieldArrayRemove;
 }) => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
@@ -97,8 +196,8 @@ const UploadCourseForm = ({
               </option>
             ))}
           </select>
-          {errors.category && (
-            <span className="text-red-500">{errors.category.message}</span>
+          {errors.categoryId && (
+            <span className="text-red-500">{errors.categoryId.message}</span>
           )}
         </div>
 
@@ -129,9 +228,9 @@ const UploadCourseForm = ({
                   handleImgChange={handleImgChange}
                   cleanUp={cleanUp}
                 />
-                {errors.image && (
+                {/* {errors.image && (
                   <span className="text-red-500">{errors.image.message}</span>
-                )}
+                )} */}
               </div>
             </TabsContent>
           </Tabs>
@@ -193,9 +292,9 @@ const UploadCourseForm = ({
           <div>
             <label htmlFor="">Session Details</label>
             <div>
-              {fields.map((field: any, index: number) => {
+              {fields.map((_, index: number) => {
                 return (
-                  <div className="mt-2 grid gap-2" key={field.id}>
+                  <div className="mt-2 grid gap-2" key={index}>
                     <input
                       type="number"
                       disabled
@@ -206,8 +305,8 @@ const UploadCourseForm = ({
                     />
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[index].sessionNumber?.message ??
-                          ""}
+                        {errors?.sessionDetails[index]?.sessionNumber
+                          ?.message ?? ""}
                       </span>
                     )}
 
@@ -220,7 +319,7 @@ const UploadCourseForm = ({
 
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[index].title?.message ?? ""}
+                        {errors?.sessionDetails[index]?.title?.message ?? ""}
                       </span>
                     )}
 
@@ -233,7 +332,7 @@ const UploadCourseForm = ({
 
                     {errors?.sessionDetails && (
                       <span className="text-red-500">
-                        {errors.sessionDetails[index].description?.message ??
+                        {errors?.sessionDetails[index]?.description?.message ??
                           ""}
                       </span>
                     )}

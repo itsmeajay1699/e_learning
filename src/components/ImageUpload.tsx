@@ -1,16 +1,13 @@
-import { useState, useRef } from "react";
-import axios from "axios";
-
 const ImageUpload = ({
   image,
   inputRef,
   handleImgChange,
   cleanUp,
 }: {
-  image: any;
-  inputRef: any;
-  handleImgChange: any;
-  cleanUp: any;
+  image: string | null;
+  inputRef: React.RefObject<HTMLInputElement>;
+  handleImgChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  cleanUp: () => void;
 }) => {
   return (
     <div>

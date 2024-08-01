@@ -1,34 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Schema, z } from "zod";
+import { z } from "zod";
 import UploadCourseForm from "./components/UploadCourseForm";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import Axios from "@/utils";
-
-const schema = z.object({
-  title: z.string().min(5),
-  description: z.string().min(10),
-  price: z.string().min(1),
-  duration: z.string().min(1),
-  sessionDetails: z.array(
-    z.object({
-      sessionNumber: z.number().positive(),
-      title: z.string().min(5),
-      description: z.string().min(10),
-    })
-  ),
-  status: z.string().min(1),
-  totalEnrollment: z.number().optional(),
-  totalSession: z.number().positive().optional(),
-  rating: z.string().optional(),
-  thumbnail: z.string().optional(),
-  categoryId: z.string().min(1, {
-    message: "Please select a category",
-  }),
-  thumbnailLink: z.string().optional(),
-});
+import { schema } from "@/types";
 
 const UploadCourses = () => {
   const [image, setImage] = useState<string | null>("");
@@ -109,7 +87,7 @@ const UploadCourses = () => {
         },
       ],
       status: "1",
-      rating: 0,
+      rating: "",
       thumbnailLink: "",
     },
   });
@@ -173,7 +151,7 @@ const UploadCourses = () => {
       <h1>Upload Courses</h1>
       <div className="grid space-y-6">
         <UploadCourseForm
-          form={form}
+          // form={form}
           register={register}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
@@ -185,7 +163,7 @@ const UploadCourses = () => {
           errors={errors}
           fields={fields}
           append={append}
-          setValues={form.setValue}
+          // setValues={form.setValue}
           remove={remove}
         />
       </div>
