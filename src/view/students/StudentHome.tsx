@@ -5,31 +5,31 @@ import { useEffect, useRef } from "react";
 const sidebarItems = [
   {
     name: "Dashboard",
-    src: "/public/icons/home.svg",
+    src: "/icons/home.svg",
     link: "/student/dashboard",
   },
   {
     name: "Courses",
-    src: "/public/icons/courses.png",
+    src: "/icons/courses.png",
     link: "/student/courses",
   },
   {
     name: "Enrolled Courses",
-    src: "/public/icons/enrolled-course.png",
+    src: "/icons/enrolled-course.png",
     link: "/student/enrolled-courses",
   },
   {
     name: "Chat",
-    src: "/public/icons/speech-bubble.png",
+    src: "/icons/speech-bubble.png",
     link: "/student/chat",
   },
-
   {
     name: "Profile",
-    src: "/public/icons/people.png",
+    src: "/icons/people.png",
     link: "/student/profile",
   },
 ];
+
 
 const StudentHome = () => {
   const location = useLocation();

@@ -6,22 +6,22 @@ import { useEffect, useRef } from "react";
 const item = [
   {
     name: "Dashboard",
-    src: "/public/icons/home.svg",
+    src: "/icons/home.svg",
     link: "/educator/dashboard",
   },
   {
     name: "My Courses",
-    src: "/public/icons/courses.png",
+    src: "/icons/courses.png",
     link: "/educator/my-courses",
   },
   {
     name: "Chat",
-    src: "/public/icons/speech-bubble.png",
+    src: "/icons/speech-bubble.png",
     link: "/educator/chat",
   },
   {
     name: "Upload Course",
-    src: "/public/icons/enrolled-courses.png",
+    src: "/icons/enrolled-courses.png",
     link: "/educator/upload-course",
   },
 ];
