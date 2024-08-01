@@ -6,7 +6,7 @@ import { io, Socket } from "socket.io-client";
 const getSocket = () => {
   // const token = localStorage.getItem("token");
 
-  return io("http://localhost:5000", {
+  return io(import.meta.env.VITE_WEBSOCKET_PROD, {
     withCredentials: true,
     auth: {
       // token,
