@@ -67,7 +67,7 @@ const ChatSidebar = ({
         >
           <span className="company-name hide flex-1 ">Treadue Courses</span>
           <img
-            src={"/public/icons/cross.png"}
+            src={"/icons/cross.png"}
             alt="logo"
             onClick={() => {
               navigate(-1);
