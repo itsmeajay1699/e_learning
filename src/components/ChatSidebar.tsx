@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const ChatSidebar = ({
   chatRoom,
-
+  sidebarRef,
   // setRoomId,
 
   originalUserId,
@@ -17,6 +17,7 @@ const ChatSidebar = ({
   chatRoom: ChatRoom[];
   // setRoomId: (id: string) => void;
   // roomId: string;
+  sidebarRef: React.RefObject<HTMLDivElement>;
   originalUserId: string;
   setUser: (user: {
     id: string;
@@ -56,7 +57,7 @@ const ChatSidebar = ({
   }, [socket]);
 
   return (
-    <aside className="sidebar sidebar-chat">
+    <div ref={sidebarRef} className="sidebar sidebar-chat">
       <div className="sidebar-wrapper">
         <div
           style={{
@@ -158,7 +159,7 @@ const ChatSidebar = ({
           ))}
         </div>
       </div>
-    </aside>
+    </div>
   );
 };
 

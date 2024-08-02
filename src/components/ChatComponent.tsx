@@ -1,12 +1,40 @@
 import { ChatRoom } from "@/types";
 import Axios from "@/utils";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ChatSidebar from "./ChatSidebar";
 import ChattingComponent from "./ChattingComponent";
 
 const ChatComponent = () => {
   const [chatRoom, setChatRoom] = React.useState<ChatRoom[] | []>([]);
   // const [roomId, setRoomId] = React.useState<string>("");
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      if (sidebarRef.current) {
+        const sidebarDiv = document.querySelector(".sidebar-handle-width");
+        const sidebarWidth = sidebarRef.current.offsetWidth;
+        if (sidebarDiv) {
+          (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
+        }
+      }
+    };
+
+    const observer = new ResizeObserver(updatePadding);
+
+    if (sidebarRef.current) {
+      observer.observe(sidebarRef.current);
+    }
+
+    // Set initial padding
+    updatePadding();
+
+    return () => {
+      if (sidebarRef.current) {
+        observer.unobserve(sidebarRef.current);
+      }
+    };
+  }, []);
 
   const [user, setUser] = React.useState<{
     id: string;
@@ -43,6 +71,7 @@ const ChatComponent = () => {
         <div>
           <ChatSidebar
             chatRoom={chatRoom}
+            sidebarRef={sidebarRef}
             // setRoomId={setRoomId}
             originalUserId={user_id}
             // roomId={roomId}
@@ -51,7 +80,7 @@ const ChatComponent = () => {
           />
         </div>
 
-        <div>
+        <div className="sidebar-handle-width">
           {user.roomId ? (
             <div>
               <ChattingComponent
