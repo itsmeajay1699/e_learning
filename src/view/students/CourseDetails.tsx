@@ -6,60 +6,6 @@ import Axios from "@/utils";
 import { useSocket } from "@/context/socketContext";
 import ChatEventEnum from "@/constant";
 import { SessionDetail } from "@/types";
-// {
-//     _id: "668d79ba3bfd352ff3e3899d",
-//     educatorId: "61035436-4e1d-4e7b-b102-31e0304d13ea",
-//     educatorDetails: {
-//       name: "Dr. John Doe",
-//       bio:
-//         "Dr. John Doe has a Ph.D. in Artificial Intelligence and has been teaching AI and ML for over 10 years.",
-//       contact: "educator@gmail.com",
-//     },
-//     title: "Introduction to Artificial Intelligence",
-//     description:
-//       "This course provides a comprehensive introduction to the field of Artificial Intelligence, including topics such as machine learning, neural networks, and natural language processing.",
-//     thumbnail:
-//       "https://nearlearn.com/public/images/ai-training-in-bangalore.jpeg",
-//     price: 1999.99,
-//     duration: 20,
-//     totalEnrollment: 0,
-//     totalSession: 5,
-//     sessionDetails: [
-//       {
-//         sessionNumber: 1,
-//         title: "Introduction to AI",
-//         description: "Overview of AI, its history, and its applications.",
-//       },
-//       {
-//         sessionNumber: 2,
-//         title: "Machine Learning Basics",
-//         description:
-//           "Introduction to machine learning concepts and techniques.",
-//       },
-//       {
-//         sessionNumber: 3,
-//         title: "Deep Learning",
-//         description: "Fundamentals of neural networks and deep learning.",
-//       },
-//       {
-//         sessionNumber: 4,
-//         title: "Natural Language Processing",
-//         description:
-//           "Techniques for processing and understanding human language.",
-//       },
-//       {
-//         sessionNumber: 5,
-//         title: "AI Ethics and Future",
-//         description:
-//           "Discussion on ethical considerations and the future of AI.",
-//       },
-//     ],
-//     status: "1",
-//     rating: 4.5,
-//     createdAt: "2024-07-09T17:56:10.520Z",
-//     updatedAt: "2024-07-09T17:56:10.520Z",
-//     __v: 0,
-//   },
 
 const CourseDetails = () => {
   const { courseId } = useParams();
@@ -97,6 +43,8 @@ const CourseDetails = () => {
     };
   }, [socket]);
 
+  console.log(location.state.course);
+
   return (
     <section>
       <div>
@@ -129,7 +77,10 @@ const CourseDetails = () => {
                   {location.state.course.title}
                 </h1>
                 <p className="text-gray-500">
-                  {location.state.course.description}
+                  {location.state.course.description
+                    .toString()
+                    .substring(0, 150)}
+                  {location.state.course.description.length > 150 && "..."}
                 </p>
               </div>
 
@@ -151,11 +102,19 @@ const CourseDetails = () => {
         </div>
         <div className="p-4 bg-white rounded-lg shadow-lg">
           <h1 className="text-2xl font-semibold mt-4">Course Details</h1>
-
+          educatorDetails
           <div className="mt-4">
             <h2 className="text-xl font-semibold">Educator Details</h2>
-            <p>{location.state.course.educatorDetails.name}</p>
-            <p>{location.state.course.educatorDetails.bio}</p>
+
+            <div className="flex gap-3 items-center my-2">
+              <img
+                className="h-12 w-12 rounded-full border-2 border-gray-400"
+                src={location.state.course.educatorDetails.profilePicture}
+                alt=""
+              />
+              <p>{location.state.course.educatorDetails.email}</p>
+              <p>{location.state.course.educatorDetails.bio}</p>
+            </div>
 
             <div>
               <h3 className="text-lg font-semibold mt-4">Contact</h3>
@@ -175,7 +134,7 @@ const CourseDetails = () => {
                       </span>
                       <h3 className="text-lg font-semibold">{session.title}</h3>
                     </div>
-                    <p>{session.description}</p> 
+                    <p>{session.description}</p>
                   </div>
                 )
               )}

@@ -1,7 +1,7 @@
-import Axio from "axios";
 import { CourseSession } from "../../types";
 import { useEffect, useState } from "react";
 import CourseCard from "../students/components/CourseCard";
+import Axios from "@/utils";
 
 const MyCourses = () => {
   const [myCourses, setMyCourses] = useState<CourseSession[] | []>([]);
@@ -9,9 +9,7 @@ const MyCourses = () => {
   useEffect(() => {
     const fetchMyCourses = async () => {
       try {
-        const { data } = await Axio.get(
-          "http://localhost:5000/api/course/my-courses"
-        );
+        const { data } = await Axios.get("/course/my-courses");
         setMyCourses(data.data);
       } catch (error) {
         console.log(error);
@@ -19,7 +17,7 @@ const MyCourses = () => {
     };
     fetchMyCourses();
   }, []);
-
+  //api/course/my-courses
   console.log(myCourses);
 
   return (

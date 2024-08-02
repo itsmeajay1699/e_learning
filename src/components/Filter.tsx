@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Category } from "@/types";
+import Axios from "@/utils";
 
 const itemVariants: Variants = {
   open: {
@@ -23,12 +24,7 @@ const FilterCourseByCategory = ({
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await fetch("http://localhost:5000/api/category");
-
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
+      const { data } = await Axios.get("/category");
       setAllCategories(data.data);
     };
 
