@@ -30,19 +30,20 @@ const sidebarItems = [
   },
 ];
 
-
 const StudentHome = () => {
   const location = useLocation();
   const path = location.pathname;
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updatePadding = () => {
       if (sidebarRef.current) {
-        const sidebarDiv = document.querySelector(".sidebar-handle-width");
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        if (sidebarDiv) {
-          (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
+        const padding = sidebarWidth;
+
+        if (divRef.current) {
+          divRef.current.style.paddingLeft = `${padding}px`;
         }
       }
     };
@@ -69,7 +70,7 @@ const StudentHome = () => {
         <StudentSideBar sidebarRef={sidebarRef} item={sidebarItems} />
       </div>
       <section className={`flex-1 w-full `}>
-        <div className="sidebar-handle-width">
+        <div ref={divRef} className="w-full h-full bg-gray-100 p-4 rounded-lg">
           <Outlet />
         </div>
       </section>

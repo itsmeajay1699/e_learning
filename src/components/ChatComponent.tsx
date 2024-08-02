@@ -8,14 +8,16 @@ const ChatComponent = () => {
   const [chatRoom, setChatRoom] = React.useState<ChatRoom[] | []>([]);
   // const [roomId, setRoomId] = React.useState<string>("");
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updatePadding = () => {
       if (sidebarRef.current) {
-        const sidebarDiv = document.querySelector(".sidebar-handle-width");
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        if (sidebarDiv) {
-          (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
+        const padding = sidebarWidth;
+
+        if (divRef.current) {
+          divRef.current.style.paddingLeft = `${padding}px`;
         }
       }
     };
@@ -80,7 +82,13 @@ const ChatComponent = () => {
           />
         </div>
 
-        <div className="sidebar-handle-width">
+        <div
+          ref={divRef}
+          className="chat-content"
+          style={{
+            transition: "padding-left 0.5s",
+          }}
+        >
           {user.roomId ? (
             <div>
               <ChattingComponent

@@ -30,16 +30,16 @@ const EducatorHome = () => {
   const location = useLocation();
   const path = location.pathname;
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updatePadding = () => {
       if (sidebarRef.current) {
-        const sidebarDiv = document.querySelector(".sidebar-handle-width");
-        4;
-        console.log(sidebarDiv);
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        if (sidebarDiv) {
-          (sidebarDiv as HTMLElement).style.paddingLeft = `${sidebarWidth}px`;
+        const padding = sidebarWidth;
+
+        if (divRef.current) {
+          divRef.current.style.paddingLeft = `${padding}px`;
         }
       }
     };
@@ -69,7 +69,7 @@ const EducatorHome = () => {
         />
       </div>
       <section className={`flex-1 w-full `}>
-        <div className="sidebar-handle-width">
+        <div ref={divRef} className="p-4 bg-white rounded-md shadow-md h-full">
           <Outlet />
         </div>
       </section>
