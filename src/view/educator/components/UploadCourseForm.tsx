@@ -12,6 +12,7 @@ import {
 
 import { z } from "zod";
 import { schema } from "@/types";
+import Axios from "@/utils";
 
 type CategoryType = {
   _id: string;
@@ -142,12 +143,7 @@ const UploadCourseForm = ({
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await fetch("http://localhost:5000/api/category");
-
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
+      const { data } = await Axios.get("/category");
       setCategories(data.data);
     };
 
