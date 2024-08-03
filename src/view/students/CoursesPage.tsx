@@ -26,16 +26,16 @@ const CoursesPage = () => {
   }, [categoryId, page, limit]);
 
   return (
-    <section>
+    <section className="p-4 flex flex-col gap-4  shadow-md  bg-gray-100 py-4 rounded-lg">
       <div>
-        <div className="flex justify-end  items-center mb-[2rem]">
+        <div className="flex justify-end  items-center">
           <Filter setState={setCategoryId} />
         </div>
 
-        <h1>All Courses</h1>
+        <h1 className="mt-4 md:mt-0">All Courses</h1>
         {/* this will remove and do increase the limit when i want to increase or decrese now 10 is fine */}
         <div onClick={() => setLimit((prev) => prev + 1)}></div>
-        <div className="grid-container mt-5">
+        <div className="grid-container mt-5 w-full">
           {data.map((course, index) => (
             <motion.div
               initial={{ x: -100, opacity: 0 }}

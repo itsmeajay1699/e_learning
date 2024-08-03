@@ -14,8 +14,7 @@ const ChatComponent = () => {
     const updatePadding = () => {
       if (sidebarRef.current) {
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        const padding = sidebarWidth;
-
+        const padding = sidebarWidth - 20;
         if (divRef.current) {
           divRef.current.style.paddingLeft = `${padding}px`;
         }
@@ -68,7 +67,7 @@ const ChatComponent = () => {
   const user_id = JSON.parse(localStorage.getItem("user") || "{}").id;
 
   return (
-    <section>
+    <section className="p-4 flex flex-col gap-4  shadow-md  bg-gray-100 py-4 rounded-lg">
       <div>
         <div>
           <ChatSidebar

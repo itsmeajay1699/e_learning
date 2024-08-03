@@ -34,11 +34,13 @@ const FilterCourseByCategory = ({
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <motion.nav initial={false} animate={isOpen ? "open" : "closed"}>
+    <motion.nav 
+    className="w-full flex  items-end relative justify-end"
+    initial={false} animate={isOpen ? "open" : "closed"}>
       <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between px-2 rounded-lg bg-blue-500  h-12  text-white w-[300px]"
+        className="flex items-center justify-between px-2 rounded-lg bg-blue-500  h-12  text-white max-w-[300px] w-full"
       >
         {categoryNameForFilter === ""
           ? "All Categories"
@@ -62,7 +64,7 @@ const FilterCourseByCategory = ({
         </motion.div>
       </motion.button>
       <motion.ul
-        className="absolute bg-white w-[300px] shadow mt-[2px] rounded-lg"
+        className="absolute bg-white w-[300px] shadow mt-[2px] rounded-lg top-12"
         variants={{
           open: {
             clipPath: "inset(0% 0% 0% 0% round 10px)",

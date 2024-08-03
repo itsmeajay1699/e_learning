@@ -16,10 +16,12 @@ const StudentSideBar = ({
   item,
   ReactNode,
   sidebarRef,
+  setToggle,
 }: {
   item: SidebarItem[];
   ReactNode?: JSX.Element;
   sidebarRef?: React.RefObject<HTMLDivElement>;
+  setToggle?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const location = useLocation();
 
@@ -80,6 +82,7 @@ const StudentSideBar = ({
           {item.map((item, index) => (
             <li
               key={index}
+              onClick={() => setToggle && setToggle(false)}
               className={`sidebar__nav-item  ${
                 location.pathname === item.link ? "active" : ""
               }`}

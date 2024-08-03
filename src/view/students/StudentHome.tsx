@@ -40,9 +40,10 @@ const StudentHome = () => {
     const updatePadding = () => {
       if (sidebarRef.current) {
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        const padding = sidebarWidth;
+        const padding = sidebarWidth - 25;
 
         if (divRef.current) {
+          console.log(padding);
           divRef.current.style.paddingLeft = `${padding}px`;
         }
       }
@@ -69,8 +70,8 @@ const StudentHome = () => {
       <div className={`${path.split("/")[2] === "chat" ? "hidden" : ""}`}>
         <StudentSideBar sidebarRef={sidebarRef} item={sidebarItems} />
       </div>
-      <section className={`flex-1 w-full `}>
-        <div ref={divRef} className="w-full h-full bg-gray-100 p-4 rounded-lg">
+      <section className={`flex-1 w-full`}>
+        <div ref={divRef} className="w-full h-full">
           <Outlet />
         </div>
       </section>

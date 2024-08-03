@@ -336,7 +336,7 @@ const StudentDashBoard = () => {
   }, [socket]);
 
   return (
-    <section className="bg-white p-4 flex flex-col gap-4 rounded-lg shadow-md">
+    <section className="p-4 flex flex-col gap-4  shadow-md  bg-gray-100 py-4 rounded-lg">
       <div
         className="bg-gray-200 p-4 flex items-start gap-4 rounded-lg shadow-md"
         style={{ height: "100px" }}

@@ -36,8 +36,8 @@ const EducatorHome = () => {
     const updatePadding = () => {
       if (sidebarRef.current) {
         const sidebarWidth = sidebarRef.current.offsetWidth;
-        const padding = sidebarWidth;
-
+       const padding = sidebarWidth;
+     
         if (divRef.current) {
           divRef.current.style.paddingLeft = `${padding}px`;
         }
