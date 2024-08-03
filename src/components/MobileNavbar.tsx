@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import logoImg from "/public/icons/logo.png";
 import { motion } from "framer-motion";
-import { useState } from "react";
 type SidebarItem = {
   name: string;
   src: string;
@@ -11,11 +10,11 @@ type SidebarItem = {
 const MobileNavbar = ({
   item,
   toggle,
-  setToggle,
+  // setToggle,
 }: {
   item: SidebarItem[];
   toggle: boolean;
-  setToggle: (toggle: boolean) => void;
+  // setToggle: (toggle: boolean) => void;
 }) => {
   return (
     <div className={`${toggle ? "mob-sidebar" : "hidden"}`}>
