@@ -10,9 +10,7 @@ const EducatorDashboard = () => {
   useEffect(() => {
     const fetchMyCourses = async () => {
       try {
-        const { data } = await Axios.get(
-          "http://localhost:5000/api/course/my-courses"
-        );
+        const { data } = await Axios.get("/course/my-courses");
         setMyCourses(data.data);
       } catch (error) {
         console.log(error);
