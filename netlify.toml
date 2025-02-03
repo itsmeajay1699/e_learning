@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/home/*"
+  to = "https://job-portal-frontend-oapt-git-main-itsmeajay1699s-projects.vercel.app/mainPage/:splat"
+  status = 200
+  force = true
