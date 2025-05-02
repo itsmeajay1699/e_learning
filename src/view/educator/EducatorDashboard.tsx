@@ -117,7 +117,7 @@ const EducatorDashboard = () => {
         style={{ height: "100px" }}
       >
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVn20gDEs5CG_H0rBnJvuJWAVuK3B_wnC-tg&s"
+          src="https://png.pngtree.com/png-clipart/20210129/ourmid/pngtree-default-male-avatar-png-image_2811083.jpg"
           alt="profile pic"
           className="rounded-full h-20 w-20 object-cover"
         />
