@@ -117,7 +117,7 @@ const EducatorDashboard = () => {
         style={{ height: "100px" }}
       >
         <img
-          src="../../public/images/logo.png"
+          src="/images/logo.png"
           alt="profile pic"
           className="rounded-full h-20 w-20 object-cover"
         />
