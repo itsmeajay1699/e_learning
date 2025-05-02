@@ -342,7 +342,7 @@ const StudentDashBoard = () => {
         style={{ height: "100px" }}
       >
         <img
-          src="https://png.pngtree.com/png-clipart/20210129/ourmid/pngtree-default-male-avatar-png-image_2811083.jpg"
+          src="../../public/images/logo.png"
           alt="profile pic"
           className="rounded-full h-20 w-20 object-cover"
         />
