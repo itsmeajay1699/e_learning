@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUser } from "@/types";
@@ -26,15 +27,15 @@ const LoginForm = ({
   } = useForm<LoginUser>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "edu@gmail.com",
+      password: "12345678",
     },
   });
 
   const onSubmit = async (data: LoginUser) => {
+    const { email, password } = data;
+    setLoading(true);
     try {
-      const { email, password } = data;
-
       const res = await Axios.post("/auth/login", {
         email,
         password,
@@ -45,14 +46,6 @@ const LoginForm = ({
       }
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      // localStorage.setItem("token", res.data.token);
-
-      // now working right now because of the Navigate component
-      // if (res.data.user.role === "1") {
-      //   return <Navigate to="/student" />;
-      // } else if (res.data.user.role === "2") {
-      //   return <Navigate to="/educator" />;
-      // }
 
       toast.success(res.data.message, {
         position: "top-right",
@@ -68,8 +61,12 @@ const LoginForm = ({
         className: "bg-red-500 text-white p-4 rounded-lg",
         duration: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
@@ -103,9 +100,10 @@ const LoginForm = ({
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white rounded-md p-[0.8rem] w-full"
+              disabled={loading}
+              className="bg-blue-500 text-white rounded-md p-[0.8rem] w-full disabled:opacity-60"
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
           <div>
@@ -121,6 +119,9 @@ const LoginForm = ({
                 alt="fb-logo"
               />
             </div>
+            <p className="text-center text-sm text-gray-500 mt-3">
+              Student demo credentials: <span className="font-medium">stu@gmail.com</span> / <span className="font-medium">12345678</span>
+            </p>
             <p className="text-center mt-5">
               Don't have an account?{" "}
               <span

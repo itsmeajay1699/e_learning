@@ -186,6 +186,7 @@ const UploadCourseForm = ({
             {...register("categoryId")}
             className="border border-gray-300 rounded-lg p-2"
           >
+            <option value="">Select category</option>
             {categories.map((category) => (
               <option key={category._id} value={category._id}>
                 {category.categoryName}

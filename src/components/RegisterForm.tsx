@@ -45,9 +45,9 @@ const RegisterForm = ({
   });
 
   const onSubmit = async (data: RegisterUser) => {
+    const { email, password } = data;
+    setLoading(true);
     try {
-      const { email, password } = data;
-
       const res = await Axios.post("/auth/register", {
         email,
         password,
@@ -59,13 +59,6 @@ const RegisterForm = ({
       }
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
-
-      // now working right now because of the Navigate component
-      // if (res.data.user.role === "1") {
-      //   return <Navigate to="/student" />;
-      // } else if (res.data.user.role === "2") {
-      //   return <Navigate to="/educator" />;
-      // }
 
       toast.success(res.data.message, {
         position: "top-right",
@@ -79,8 +72,12 @@ const RegisterForm = ({
         className: "bg-red-500 text-white p-4 rounded-lg",
         duration: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
+
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <div>
@@ -114,17 +111,15 @@ const RegisterForm = ({
               <div className="flex items-center gap-2">
                 <span
                   onClick={() => setIsStudent(true)}
-                  className={`cursor-pointer ${
-                    isStudent ? "text-blue-500" : "text-gray-500"
-                  }`}
+                  className={`cursor-pointer ${isStudent ? "text-blue-500" : "text-gray-500"
+                    }`}
                 >
                   Student
                 </span>
                 <div
                   onClick={() => setIsStudent(!isStudent)}
-                  className={`h-6 w-12 p-[2px] rounded-full bg-gray-200 flex ${
-                    isStudent ? "justify-start" : "justify-end"
-                  }`}
+                  className={`h-6 w-12 p-[2px] rounded-full bg-gray-200 flex ${isStudent ? "justify-start" : "justify-end"
+                    }`}
                 >
                   <motion.div
                     className={`h-5 w-5 rounded-full bg-blue-500`}
@@ -134,9 +129,8 @@ const RegisterForm = ({
                 </div>
                 <span
                   onClick={() => setIsStudent(false)}
-                  className={`cursor-pointer ${
-                    !isStudent ? "text-blue-500" : "text-gray-500"
-                  }`}
+                  className={`cursor-pointer ${!isStudent ? "text-blue-500" : "text-gray-500"
+                    }`}
                 >
                   Educator
                 </span>
@@ -144,9 +138,10 @@ const RegisterForm = ({
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white rounded-md p-[0.8rem] w-full"
+              disabled={loading}
+              className="bg-blue-500 text-white rounded-md p-[0.8rem] w-full disabled:opacity-60"
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
           </div>
           <div>

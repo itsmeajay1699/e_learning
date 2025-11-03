@@ -133,7 +133,10 @@ export const schema = z.object({
   status: z.string().min(1),
   totalEnrollment: z.number().optional(),
   totalSession: z.number().positive().optional(),
-  rating: z.string().optional(),
+  rating: z.string().min(1, { message: "Rating is required" }).refine(
+    (val) => !Number.isNaN(Number(val)) && Number(val) >= 0 && Number(val) <= 5,
+    { message: "Rating must be a number between 0 and 5" }
+  ),
   thumbnail: z.string().optional(),
   categoryId: z.string().min(1, {
     message: "Please select a category",
